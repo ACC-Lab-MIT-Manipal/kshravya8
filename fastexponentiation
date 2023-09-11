@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+long fast_exponentiation(long base, long exponent, long modulus) {
+    long result = 1;
+    base = base % modulus;  // Reduce base modulo modulus to avoid overflow
+
+    while (exponent > 0) {
+        // If the current exponent is odd, multiply result by base modulo modulus
+        if (exponent % 2 == 1) {
+            result = (result * base) % modulus;
+        }
+
+        // Reduce the exponent by half and square the base modulo modulus
+        base = (base * base) % modulus;
+        exponent /= 2;
+    }
+
+    return result;
+}
+
+int main() {
+    long base;
+    long exponent;
+    long modulus;
+    printf("enter the base , exponent and modulus\n");
+    scanf("%d %d %d",&base,&exponent,&modulus);
+    long result = fast_exponentiation(base, exponent, modulus);
+
+    printf("%ld^%ld mod %ld = %ld\n", base, exponent, modulus, result);
+
+    return 0;
+}
